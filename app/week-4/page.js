@@ -1,14 +1,12 @@
-"use client";
-import { useState } from "react";
+import NewItem from './new-item';
 
-export default function Counter() {
-    const [count, setCount] = useState(0);
-    const increment = () => setCount(count + 1);
-
+function Page() {
     return (
         <div>
-            <h1>{count}</h1>
-            <button onClick={increment}>Increment</button>
+            <h1>Week 4 Assignment</h1>
+            <NewItem />
         </div>
     );
 }
+
+export default Page;
