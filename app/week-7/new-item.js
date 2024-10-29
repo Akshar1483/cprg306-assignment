@@ -19,7 +19,7 @@ export default function NewItem({ onAddItem }) {
     e.preventDefault();
 
     const item = {
-      id: Math.random().toString(36).substr(2, 9),  
+      id: Math.random().toString(36).substr(2, 9),
       name,
       quantity,
       category,
@@ -33,7 +33,7 @@ export default function NewItem({ onAddItem }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start space-y-6 p-8 bg-white rounded-3xl shadow-lg w-full max-w-lg">
+    <div className="flex flex-col items-center justify-start space-y-6 p-8 bg-gray-800 rounded-3xl shadow-lg w-full max-w-lg">
       
       <input
         type="text"
@@ -41,7 +41,7 @@ export default function NewItem({ onAddItem }) {
         onChange={(e) => setName(e.target.value)}
         placeholder="Enter item name"
         required
-        className="border p-3 w-full rounded-xl bg-gray-100 text-gray-800 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="border p-3 w-full rounded-xl bg-gray-500 text-white placeholder-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <div className="flex items-center justify-between space-x-6 w-full">
@@ -50,11 +50,11 @@ export default function NewItem({ onAddItem }) {
           <button
             onClick={decrement}
             disabled={quantity === 1}
-            className="bg-gray-400 text-white w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 transition-all hover:bg-gray-500"
+            className="bg-gray-500 text-white w-10 h-10 flex items-center justify-center rounded-full disabled:opacity-50 transition-all hover:bg-gray-500"
           >
             -
           </button>
-          <span className="text-lg font-semibold text-gray-800">{quantity}</span>
+          <span className="text-lg font-semibold text-white">{quantity}</span>
           
           <button
             onClick={increment}
@@ -68,7 +68,7 @@ export default function NewItem({ onAddItem }) {
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="p-3 w-full border rounded-xl bg-gray-100 text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-3 w-full border rounded-xl bg-gray-500 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="produce">Produce</option>
           <option value="dairy">Dairy</option>
