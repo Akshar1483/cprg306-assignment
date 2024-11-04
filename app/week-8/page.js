@@ -1,36 +1,48 @@
-"use client"
+"use client";
+import { useState } from "react";
+import ItemList from "./item-list";
+import itemsData from "./items.json";
+import MealIdeas from "./meal-ideas";
+import NewItem from "./new-item";
 
-import React, { useState } from 'react';
-import ItemList from './item-list';
-import NewItem from './new-item';
-import itemsData from './items.json';
-import MealIdeas from './meal-ideas';
+const Page = () => {
+  const [items, setItems] = useState(itemsData);
+  const [selectedItemName, setSelectedItemName] = useState("");
 
-export default function Page() {
+  const handleAddItem = (newItem) => {
+    setItems([...items, newItem]);
+  };
 
-    const [items, setItems] = useState(itemsData)
-    const [selectedItemName, setSelectedItemName] = useState('')
+  const handleItemSelect = (item) => {
+    const cleanedName = item.name
+      .split(",")[0]
+      .replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\u2011-\u26FF])/g, "")
+      .trim();
+    setSelectedItemName(cleanedName);
+  };
 
-    const handleAddItem = (newItem) => {
-        setItems([...items, newItem])
-    }
+  return (
+    <main className="p-4 bg-gray-900 ">
+      <h1 className="text-3xl font-bold text-white mb-4">Shopping List</h1>
+      <div className="flex">
+        <div>
+          <NewItem onAddItem={handleAddItem} />
+          <ItemList items={items} onItemSelect={handleItemSelect} />
+        </div>
+        <div className="ml-4 mt-6">
+          <h1 className="text-3xl font-bold text-white">Meal Ideas</h1>
+          {/* Conditional Rendering: If an item is selected, show meal ideas */}
+          {selectedItemName ? (
+            <MealIdeas ingredient={selectedItemName} />
+          ) : (
+            <h2 className="text-xl text-white">
+              Select an item to see meal ideas
+            </h2>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+};
 
-    const handleItemSelect = itemName => {
-        setSelectedItemName(itemName)
-    }
-
-    return (
-        <main className='p-5'>
-            <h1 className="text-3xl font-bold mb-4">Shopping List</h1>
-            <div className='flex'>
-                <div className='w-1/2'>
-                    <NewItem onAddItem={handleAddItem} />
-                    <ItemList items={items} onItemSelect={handleItemSelect} />
-                </div>
-                <MealIdeas ingredient={selectedItemName} />
-            </div>
-
-
-        </main>
-    )
-}
+export default Page;
