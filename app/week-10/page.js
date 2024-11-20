@@ -1,37 +1,49 @@
-// page.js
 "use client";
-import { useUserAuth } from "./_utils/auth-context";
-import { useEffect } from "react";
 
-const MainPage = () => {
+import Link from "next/link";
+import { useUserAuth } from "./_utils/auth-context";
+
+export default function Page() {
   const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
-  const handleSignIn = async () => {
-    await gitHubSignIn();
-  };
-
-  const handleSignOut = async () => {
-    await firebaseSignOut();
-  };
-
   return (
-    <div>
-      {user ? (
-        <div>
-          <p>
-            Welcome, {user.displayName} ({user.email})
-          </p>
-          <button onClick={handleSignOut} className="bg-red-500 text-white px-4 py-2 rounded">
-            Sign Out
-          </button>
-        </div>
-      ) : (
-        <button onClick={handleSignIn} className="bg-blue-500 text-white px-4 py-2 rounded">
-          Sign in with GitHub
-        </button>
-      )}
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div className="bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md text-center">
+        {user ? (
+          <div>
+            <p className="text-lg font-semibold mb-4 text-gray-200">
+              Welcome,
+              <span className="text-indigo-400"> {user.displayName}</span> (
+              {user.email})
+            </p>
+            <button
+              onClick={firebaseSignOut}
+              className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 transition duration-300"
+            >
+              Sign out
+            </button>
+
+            <Link
+              href="/week-10/shopping-list"
+              className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 transition duration-300"
+            >
+              ShoppingList
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <p className="text-lg font-medium mb-4 text-gray-200">
+              Please sign in
+            </p>
+            <button
+              onClick={gitHubSignIn}
+              className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition duration-300"
+            >
+              Sign in with GitHub
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
-};
-
-export default MainPage;
+}
